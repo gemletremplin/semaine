@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr-FR">
+    <head>
+        <style>
+            .content {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+            }
+
+            .content > * {
+                margin-bottom: 20px;
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+            }
+
+            .content > * h1 {
+                font-family: lobster;
+                font-size: 1.3em;
+                margin-top: 0;
+            }
+
+            .content > * p {
+                margin: 0;
+            }
+
+            .week {
+                border-bottom: 1px dashed #e1e1e1;
+                padding-bottom: 20px;
+            }
+
+            .thisWeek {
+                font-size: 2em;
+            }
+
+            .nextWeek {
+                font-size: 1.4em;
+                color: #777777;
+            }
+
+            .thisWeek .hl {
+                color: rgba(255, 0, 0, 1);
+            }
+
+            .nextWeek .hl {
+                color: rgba(255, 0, 0, 0.7);
+            }
+
+            .cat {
+                font-size: 1.4em;
+                color: #888888;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="content">
+            <div class="week thisWeek">
+                <h1>Nous sommes en semaine <span class="weekNumber hl"></span></h1>
+                <p>Ce <span class="hl">jeudi</span>, le gem ouvrira à <span class="thursdayTime hl"></span>.</p>
+                <p>Ce <span class="hl">samedi</span>, le gem sera <span class="saturdayStatus hl"></span>.</p>
+            </div>
+
+            <div class="week nextWeek">
+                <h1>La semaine prochaine, nous serons en semaine <span class="weekNumber hl"></span></h1>
+                <p>Le <span class="hl">jeudi</span> de la semaine prochaine, le gem ouvrira à <span class="thursdayTime hl"></span>.</p>
+                <p>Le <span class="hl">samedi</span> de la semaine prochaine, le gem sera <span class="saturdayStatus hl"></span>.</p>
+            </div>
+
+            <div class="cat">
+                <h1>Et afin que vous passiez une meilleure journée, voici un chat</h1>
+                <img src="https://catis.life/placeholder/500">
+            </div>
+        </div>
+
+
+    </body>
+    <script src="moment-with-locales.min.js"></script>
+    <script>
+        moment.locale("fr");
+
+        function getWeek(now) {
+            let dateRef = moment([2019, 7, 19]).startOf("week"); // Semaine 1
+            let dateCurrentWeek = moment(now).startOf("week");
+            let weekDiff = parseInt(moment.duration(dateCurrentWeek.diff(dateRef)).asWeeks());
+            return (weekDiff % 3) + 1;
+        }
+
+        function getWeekData(week) {
+            let thursdayTime;
+            let saturdayStatus;
+
+            switch (week) {
+                case 1:
+                    thursdayTime = "10h";
+                    saturdayStatus = "ouvert";
+                    break;
+                case 2:
+                    thursdayTime = "10h";
+                    saturdayStatus = "fermé";
+                    break;
+                case 3:
+                    thursdayTime = "11h";
+                    saturdayStatus = "ouvert";
+                    break;
+                default:
+                    break;
+            }
+
+            return {week: week, thursdayTime: thursdayTime, saturdayStatus: saturdayStatus};
+        }
+
+        function populateData(el, data) {
+            el.getElementsByClassName("weekNumber")[0].innerHTML = data.week;
+            el.getElementsByClassName("thursdayTime")[0].innerHTML = data.thursdayTime;
+            el.getElementsByClassName("saturdayStatus")[0].innerHTML = data.saturdayStatus;
+        }
+
+
+        let data = getWeekData(getWeek());
+        let thisWeekEl = document.getElementsByClassName("thisWeek")[0];
+        populateData(thisWeekEl, data);
+
+        let nextData = getWeekData(getWeek(moment().add(1, "week").startOf("week")));
+        let nextWeekEl = document.getElementsByClassName("nextWeek")[0];
+        populateData(nextWeekEl, nextData);
+    </script>
+</html>
