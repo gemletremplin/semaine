@@ -1,11 +1,18 @@
 <!doctype html>
 <html lang="fr-FR">
     <head>
+        <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
         <style>
+            body {
+                background-color: #f1f1f1;
+            }
+
             .content {
                 display: flex;
-                flex-flow: column nowrap;
+                flex-flow: column wrap;
                 align-items: center;
+                font-size: 2.4em;
+                padding: 20px;
             }
 
             .content > * {
@@ -16,13 +23,15 @@
             }
 
             .content > * h1 {
-                font-family: lobster;
-                font-size: 1.3em;
+                font-family: 'Lobster', cursive;
+                font-size: 1.8em;
                 margin-top: 0;
+                text-align: center;
             }
 
             .content > * p {
-                margin: 0;
+                margin: 0 0 15px 0;
+                font-size: 1.1em;
             }
 
             .week {
@@ -31,12 +40,10 @@
             }
 
             .thisWeek {
-                font-size: 2em;
-            }
-
-            .nextWeek {
-                font-size: 1.4em;
-                color: #777777;
+                margin-top: 10px;
+                background-color: #ffffff;
+                padding: 20px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             }
 
             .thisWeek .hl {
@@ -45,11 +52,6 @@
 
             .nextWeek .hl {
                 color: rgba(255, 0, 0, 0.7);
-            }
-
-            .cat {
-                font-size: 1.4em;
-                color: #888888;
             }
         </style>
     </head>
@@ -63,20 +65,20 @@
             </div>
 
             <div class="week nextWeek">
-                <h1>La semaine prochaine, nous serons en semaine <span class="weekNumber hl"></span></h1>
+                <h1>La semaine prochaine,<br>nous serons en semaine <span class="weekNumber hl"></span></h1>
                 <p>Le <span class="hl">jeudi</span> de la semaine prochaine, le gem ouvrira à <span class="thursdayTime hl"></span>.</p>
                 <p>Le <span class="hl">samedi</span> de la semaine prochaine, le gem sera <span class="saturdayStatus hl"></span>.</p>
             </div>
 
             <div class="cat">
-                <h1>Et afin que vous passiez une meilleure journée, voici un chat</h1>
+                <h1>Et afin que vous passiez une bonne journée, voici un chat</h1>
                 <img src="https://catis.life/placeholder/500">
             </div>
         </div>
 
 
     </body>
-    <script src="moment-with-locales.min.js"></script>
+    <script src="static/moment-with-locales.min.js"></script>
     <script>
         moment.locale("fr");
 
