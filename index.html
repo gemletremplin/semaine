@@ -3,76 +3,108 @@
     <head>
         <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
         <style>
-            body {
-                background-color: #f1f1f1;
+            html, body {
+                background-color: #f8f8f8;
+                margin: 0;
+                padding: 0;
             }
 
             .content {
                 display: flex;
                 flex-flow: column wrap;
-                align-items: center;
+                align-items: stretch;
                 font-size: 2.4em;
                 padding: 20px;
             }
 
             .content > * {
-                margin-bottom: 20px;
+                margin-bottom: 30px;
                 display: flex;
                 flex-flow: column nowrap;
-                align-items: center;
+                align-items: stretch;
             }
 
-            .content > * h1 {
-                font-family: 'Lobster', cursive;
-                font-size: 1.8em;
-                margin-top: 0;
-                text-align: center;
-            }
-
-            .content > * p {
-                margin: 0 0 15px 0;
-                font-size: 1.1em;
-            }
-
-            .week {
+            .block {
                 border-bottom: 1px dashed #e1e1e1;
-                padding-bottom: 20px;
-            }
-
-            .thisWeek {
-                margin-top: 10px;
+                padding-bottom: 5px;
                 background-color: #ffffff;
-                padding: 20px;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             }
 
-            .thisWeek .hl {
+            .block .hl {
                 color: rgba(255, 0, 0, 1);
             }
 
-            .nextWeek .hl {
-                color: rgba(255, 0, 0, 0.7);
+            .block .header {
+                font-size: 1.8em;
+                margin: 0;
+                padding: 0 0 10px 0;
+                text-align: center;
+                border-bottom: 1px solid #cccccc;
+            }
+
+            .block.week .header {
+                font-family: 'Lobster', cursive;
+            }
+
+            .block p {
+                margin: 0 0 10px 0;
+                font-size: 1.1em;
+            }
+
+            .block p:last-child {
+                margin-bottom: 0;
+            }
+
+            .block .description {
+                padding: 20px;
+            }
+
+            .nextWeek {
+                opacity: 75%;
+            }
+
+            .block-transition {
+                align-self: center;
+            }
+
+            .block.cat .header {
+                font-size: 1.3em;
+            }
+
+            .block.cat .description {
+                align-self: center;
             }
         </style>
     </head>
     <body>
 
         <div class="content">
-            <div class="week thisWeek">
-                <h1>Nous sommes en semaine <span class="weekNumber hl"></span></h1>
-                <p>Ce <span class="hl">jeudi</span>, le gem ouvrira à <span class="thursdayTime hl"></span>.</p>
-                <p>Ce <span class="hl">samedi</span>, le gem sera <span class="saturdayStatus hl"></span>.</p>
+            <div class="block week thisWeek">
+                <h1 class="header">Semaine <span class="weekNumber hl"></span></h1>
+                <div class="description">
+                    <p>Ce <span class="hl">jeudi</span>, le gem ouvrira à <span class="thursdayTime hl"></span>.</p>
+                    <p>Ce <span class="hl">samedi</span>, le gem sera <span class="saturdayStatus hl"></span>.</p>
+                </div>
             </div>
 
-            <div class="week nextWeek">
-                <h1>La semaine prochaine,<br>nous serons en semaine <span class="weekNumber hl"></span></h1>
-                <p>Le <span class="hl">jeudi</span> de la semaine prochaine, le gem ouvrira à <span class="thursdayTime hl"></span>.</p>
-                <p>Le <span class="hl">samedi</span> de la semaine prochaine, le gem sera <span class="saturdayStatus hl"></span>.</p>
+            <div class="block-transition">&#x1F551;</div>
+
+            <div class="block week nextWeek">
+                <h1 class="header">Semaine <span class="weekNumber hl"></span></h1>
+                <div class="description">
+                    <p>Le <span class="hl">jeudi</span> de la semaine prochaine, le gem ouvrira à <span class="thursdayTime hl"></span>.</p>
+                    <p>Le <span class="hl">samedi</span> de la semaine prochaine, le gem sera <span class="saturdayStatus hl"></span>.</p>
+                </div>
             </div>
 
-            <div class="cat">
-                <h1>Et afin que vous passiez une bonne journée, voici un chat</h1>
-                <img src="https://catis.life/placeholder/500">
+            <div class="block-transition">&#x1f431;</div>
+
+            <div class="block cat">
+                <h1 class="header">Et afin que vous passiez une bonne journée, voici un chat</h1>
+                <div class="description">
+                    <img src="https://cataas.com/cat">
+                </div>
             </div>
         </div>
 
