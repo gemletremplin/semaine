@@ -24,8 +24,11 @@
                 align-items: stretch;
             }
 
+            .content > .shrinked {
+                align-self: center;
+            }
+
             .block {
-                border-bottom: 1px dashed #e1e1e1;
                 padding-bottom: 5px;
                 background-color: #ffffff;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -60,19 +63,28 @@
                 padding: 20px;
             }
 
-            .nextWeek {
-                opacity: 75%;
-            }
-
             .block-transition {
                 align-self: center;
             }
 
-            .block.cat .header {
+            .thisWeek {
+                background-color: #2196f3;
+                /*color: #ffffff;*/
+            }
+
+            .thisWeek .hl {
+                color: #ffffff;
+            }
+
+            .thisWeek .header {
+                border-color: #1976d2;
+            }
+            
+            .cat .header {
                 font-size: 1.3em;
             }
 
-            .block.cat .description {
+            .cat .description {
                 align-self: center;
             }
         </style>
@@ -100,8 +112,7 @@
 
             <div class="block-transition">&#x1f431;</div>
 
-            <div class="block cat">
-                <h1 class="header">Et afin que vous passiez une bonne journée, voici un chat</h1>
+            <div class="block shrinked cat">
                 <div class="description">
                     <img src="https://cataas.com/cat">
                 </div>
