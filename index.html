@@ -1,127 +1,58 @@
 <!doctype html>
 <html lang="fr-FR">
     <head>
-        <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="robots" content="noindex, nofollow" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
         <style>
-            html, body {
-                background-color: #f8f8f8;
-                margin: 0;
-                padding: 0;
+            body > .ui.container {
+                margin-bottom: 50px;
             }
-
-            .content {
-                display: flex;
-                flex-flow: column wrap;
-                align-items: stretch;
-                font-size: 2.4em;
-                padding: 20px;
-            }
-
-            .content > * {
-                margin-bottom: 30px;
-                display: flex;
-                flex-flow: column nowrap;
-                align-items: stretch;
-            }
-
-            .content > .shrinked {
-                align-self: center;
-            }
-
-            .block {
-                padding-bottom: 5px;
-                background-color: #ffffff;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            }
-
-            .block .hl {
-                color: rgba(255, 0, 0, 1);
-            }
-
-            .block .header {
-                font-size: 1.8em;
-                margin: 0;
-                padding: 0 0 10px 0;
-                text-align: center;
-                border-bottom: 1px solid #cccccc;
-            }
-
-            .block.week .header {
-                font-family: 'Lobster', cursive;
-            }
-
-            .block p {
-                margin: 0 0 10px 0;
-                font-size: 1.1em;
-            }
-
-            .block p:last-child {
-                margin-bottom: 0;
-            }
-
-            .block .description {
-                padding: 20px;
-            }
-
-            .block-transition {
-                align-self: center;
-            }
-
-            .thisWeek {
-                background-color: #2196f3;
-                /*color: #ffffff;*/
-            }
-
-            .thisWeek .hl {
-                color: #ffffff;
-            }
-
-            .thisWeek .header {
-                border-color: #1976d2;
-            }
-            
-            .cat .header {
-                font-size: 1.3em;
-            }
-
-            .cat .description {
-                align-self: center;
+            .segment > p {
+                line-height: 2.3em;
             }
         </style>
     </head>
     <body>
+        <div class="ui container">
 
-        <div class="content">
-            <div class="block week thisWeek">
-                <h1 class="header">Semaine <span class="weekNumber hl"></span></h1>
-                <div class="description">
-                    <p>Ce <span class="hl">jeudi</span>, le gem ouvrira à <span class="thursdayTime hl"></span>.</p>
-                    <p>Ce <span class="hl">samedi</span>, le gem sera <span class="saturdayStatus hl"></span>.</p>
+            <h1 class="ui centered header">Quelle semaine sommes-nous ?</h1>
+
+            <div class="ui doubling one column grid">
+                <div class="column">
+                    <div class="ui blue segment thisWeek">
+                        <h2 class="ui header">Semaine <span class="weekNumber"></span></h2>
+                        <p>
+                            Ce <span class="ui blue basic label">jeudi</span>, le gem ouvrira à <span class="ui basic label thursdayTime"></span>.
+                        </p>
+                        <div class="ui inverted divider"></div>
+                        <p>
+                            Ce <span class="ui blue basic label">samedi</span>, le gem sera <span class="ui basic label saturdayStatus"></span>.
+                        </p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui segment nextWeek">
+                        <h2 class="ui header">Semaine <span class="weekNumber"></span></h2>
+                        <p>
+                            Le <span class="ui blue basic label">jeudi</span> de la semaine prochaine, le gem ouvrira à <span class="ui basic label thursdayTime"></span>.
+                        </p>
+                        <div class="ui inverted divider"></div>
+                        <p>
+                            Le <span class="ui blue basic label">samedi</span> de la semaine prochaine, le gem sera <span class="ui basic label saturdayStatus"></span>
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <div class="block-transition">&#x1F551;</div>
-
-            <div class="block week nextWeek">
-                <h1 class="header">Semaine <span class="weekNumber hl"></span></h1>
-                <div class="description">
-                    <p>Le <span class="hl">jeudi</span> de la semaine prochaine, le gem ouvrira à <span class="thursdayTime hl"></span>.</p>
-                    <p>Le <span class="hl">samedi</span> de la semaine prochaine, le gem sera <span class="saturdayStatus hl"></span>.</p>
-                </div>
+            <div class="ui basic segment">
+                <img class="ui centered rounded image" src="https://cataas.com/cat">
             </div>
 
-            <div class="block-transition">&#x1f431;</div>
-
-            <div class="block shrinked cat">
-                <div class="description">
-                    <img src="https://cataas.com/cat">
-                </div>
-            </div>
         </div>
-
-
     </body>
-    <script src="static/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.3/moment-with-locales.min.js"></script>
     <script>
         moment.locale("fr");
 
@@ -157,11 +88,17 @@
         }
 
         function populateData(el, data) {
-            el.getElementsByClassName("weekNumber")[0].innerHTML = data.week;
-            el.getElementsByClassName("thursdayTime")[0].innerHTML = data.thursdayTime;
-            el.getElementsByClassName("saturdayStatus")[0].innerHTML = data.saturdayStatus;
-        }
+            let saturdayStatusEl = el.getElementsByClassName("saturdayStatus")[0];
+            let thursdayTimeEl = el.getElementsByClassName("thursdayTime")[0];
 
+            el.getElementsByClassName("weekNumber")[0].innerHTML = data.week;
+
+            thursdayTimeEl.innerHTML = data.thursdayTime;
+            thursdayTimeEl.classList.add((data.thursdayTime == '10h') ? 'blue' : 'orange')
+
+            saturdayStatusEl.innerHTML = data.saturdayStatus;
+            saturdayStatusEl.classList.add((data.saturdayStatus == 'ouvert') ? 'blue' : 'red');
+        }
 
         let data = getWeekData(getWeek());
         let thisWeekEl = document.getElementsByClassName("thisWeek")[0];
