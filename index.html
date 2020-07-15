@@ -17,44 +17,21 @@
     <body>
         <div class="ui container">
 
-            <h1 class="ui centered header">Quelle semaine sommes-nous ?</h1>
-
-            <div class="ui negative icon message">
-                <i class="fire icon"></i>
-                <div class="content">
-                    <div class="header">
-                        Obsolète
-                    </div>
-                    <div>Cette page est obsolète dû aux recommandations liées au déconfinement.</div>
-                    <div>
-                        Le formulaire d'inscription ainsi que les horaires d'ouvertures, sont disponibles ici: <a href="https://gemletremplin.fr/inscription/">gemletremplin.fr/inscription</a>.
-                    </div>
-                </div>
-            </div>
+            <h1 class="ui centered header">Semaine et ouvertures</h1>
 
             <div class="ui doubling one column grid">
                 <div class="column">
                     <div class="ui blue segment thisWeek">
-                        <h2 class="ui header">Semaine <span class="weekNumber"></span></h2>
-                        <p>
-                            Ce <span class="ui blue basic label">jeudi</span>, le gem ouvrira à <span class="ui basic label thursdayTime"></span>.
-                        </p>
+                        <h2 class="ui header">Nous sommes en semaine <span class="weekNumber"></span></h2>
                         <div class="ui inverted divider"></div>
-                        <p>
-                            Ce <span class="ui blue basic label">samedi</span>, le gem sera <span class="ui basic label saturdayStatus"></span>.
-                        </p>
+                        <p class="status"></p>
                     </div>
                 </div>
                 <div class="column">
                     <div class="ui segment nextWeek">
-                        <h2 class="ui header">Semaine <span class="weekNumber"></span></h2>
-                        <p>
-                            Le <span class="ui blue basic label">jeudi</span> de la semaine prochaine, le gem ouvrira à <span class="ui basic label thursdayTime"></span>.
-                        </p>
+                        <h2 class="ui header">La semaine prochaine sera une semaine <span class="weekNumber"></span></h2>
                         <div class="ui inverted divider"></div>
-                        <p>
-                            Le <span class="ui blue basic label">samedi</span> de la semaine prochaine, le gem sera <span class="ui basic label saturdayStatus"></span>
-                        </p>
+                        <p class="status"></p>
                     </div>
                 </div>
             </div>
@@ -70,47 +47,46 @@
         moment.locale("fr");
 
         function getWeek(now) {
-            let dateRef = moment([2019, 7, 19]).startOf("week"); // Semaine 1
+            let dateRef = moment([2019, 7, 26]).startOf("week"); // Semaine 1
             let dateCurrentWeek = moment(now).startOf("week");
             let weekDiff = parseInt(moment.duration(dateCurrentWeek.diff(dateRef)).asWeeks());
             return (weekDiff % 3) + 1;
         }
 
         function getWeekData(week) {
-            let thursdayTime;
-            let saturdayStatus;
+            let time = "14h à 18h";
+            let days;
 
             switch (week) {
                 case 1:
-                    thursdayTime = "10h";
-                    saturdayStatus = "ouvert";
+                    days = ["Mardi", "Jeudi", "Samedi"];
                     break;
                 case 2:
-                    thursdayTime = "10h";
-                    saturdayStatus = "fermé";
+                    days = ["Lundi", "Mercredi", "Vendredi"];
                     break;
                 case 3:
-                    thursdayTime = "11h";
-                    saturdayStatus = "ouvert";
+                    days = ["Mardi", "Mercredi", "Vendredi", "Samedi"];
                     break;
                 default:
                     break;
             }
 
-            return {week: week, thursdayTime: thursdayTime, saturdayStatus: saturdayStatus};
+            return {week, time, days};
         }
 
         function populateData(el, data) {
-            let saturdayStatusEl = el.getElementsByClassName("saturdayStatus")[0];
-            let thursdayTimeEl = el.getElementsByClassName("thursdayTime")[0];
+            let statusHtml = [];
+
+            for (let day of data.days) {
+                statusHtml.push(`
+                    <div class="day">
+                        Le <div class="ui basic blue label">${day}</div> de ${data.time}
+                    </div>
+                `);
+            }
 
             el.getElementsByClassName("weekNumber")[0].innerHTML = data.week;
-
-            thursdayTimeEl.innerHTML = data.thursdayTime;
-            thursdayTimeEl.classList.add((data.thursdayTime == '10h') ? 'blue' : 'orange')
-
-            saturdayStatusEl.innerHTML = data.saturdayStatus;
-            saturdayStatusEl.classList.add((data.saturdayStatus == 'ouvert') ? 'blue' : 'red');
+            el.getElementsByClassName("status")[0].innerHTML = statusHtml.join('\n');
         }
 
         let data = getWeekData(getWeek());
